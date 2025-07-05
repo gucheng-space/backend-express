@@ -1,12 +1,6 @@
-import express from "express";
-import { Request, Response } from "express";
-const app = express();
-const port = 3000;
+import app from "./app";
+import { APP_PORT } from "./app/app.config";
 
-app.listen(port, () => {
-  console.log(`🚀 服务已启动在 ${port} 端口`);
-});
-
-app.get("/", (request: Request, response: Response) => {
-  response.send("hello world");
+app.listen(APP_PORT, () => {
+  console.log(`🚀 服务已启动在 ${APP_PORT} 端口`);
 });

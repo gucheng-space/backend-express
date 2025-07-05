@@ -1,0 +1,15 @@
+export const getPosts = () => {
+  const data = [
+    {
+      id: 1,
+      title: "第一篇文章",
+      content: "这是第一篇文章的内容",
+    },
+    {
+      id: 2,
+      title: "第二篇文章",
+      content: "这是第二篇文章的内容",
+    },
+  ];
+  return data;
+};
