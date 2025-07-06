@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import * as authService from "./auth.service";
+import { signToken } from "./auth.service";
+import { request } from "http";
 
 /**
  * 用户登录
@@ -9,11 +10,23 @@ export const login = async (
   response: Response,
   next: NextFunction
 ) => {
-  const { name, password } = resquest.body;
+  const { id, name } = resquest.body.user;
+  const token = signToken({ paylode: { id, name } });
 
   try {
-    response.send({ message: `欢迎回来${name}` });
+    response.send({ id, name, token });
   } catch (error) {
     next(error);
   }
+};
+
+/**
+ * 验证登录
+ */
+export const validate = (
+  request: Request,
+  reponse: Response,
+  next: NextFunction
+) => {
+  reponse.sendStatus(200);
 };

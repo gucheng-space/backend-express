@@ -27,11 +27,15 @@ export const getPosts = async () => {
  */
 export const createPost = async (post: PostModel) => {
   const statement = `
-  INSERT INTO post (title,content)
-   VALUES ($1,$2)
+  INSERT INTO post (title,content,userId)
+   VALUES ($1,$2,$3)
    RETURNING *
   `;
-  const { rows } = await pool.query(statement, [post.title, post.content]);
+  const { rows } = await pool.query(statement, [
+    post.title,
+    post.content,
+    post.userId,
+  ]);
   return rows;
 };
 
