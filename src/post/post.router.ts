@@ -10,6 +10,21 @@ const router = express.Router();
 router.get("/posts", requestUrl, postController.index);
 
 /**
+ * 创建内容
+ */
+router.post("/posts", postController.store);
+
+/**
+ * 更新文章
+ */
+router.patch("/posts/:postId", postController.upodate);
+
+/**
+ * 删除文章
+ */
+router.delete("/posts/:postId", postController.destroy);
+
+/**
  * 导出路由
  */
 export default router;
