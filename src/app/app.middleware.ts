@@ -25,7 +25,19 @@ export const defaultErrorHandler = (
     console.log(" 🔧 ", error.message);
   }
   let statusCode: number, message: string;
-  switch (error.name) {
+  switch (error.message) {
+    case "NAME_IS_REQUIRED":
+      statusCode = 400;
+      message = "请输入用户名";
+      break;
+    case "PASSWORD_IS_REQUIRED":
+      statusCode = 400;
+      message = "请输入密码";
+      break;
+    case "USER_ALREADY_EXIST":
+      statusCode = 400;
+      message = "这名字被人用了";
+      break;
     default:
       statusCode = 500;
       message = "服务器暂时出了点问题 O.o";

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      bcrypt:
+        specifier: ^6.0.0
+        version: 6.0.0
       express:
         specifier: 4.17.1
         version: 4.17.1
@@ -18,6 +21,9 @@ importers:
         specifier: ^8.16.3
         version: 8.16.3
     devDependencies:
+      '@types/bcrypt':
+        specifier: ^5.0.2
+        version: 5.0.2
       '@types/express':
         specifier: 4.17.1
         version: 4.17.1
@@ -47,6 +53,9 @@ importers:
         version: 5.8.3
 
 packages:
+
+  '@types/bcrypt@5.0.2':
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
 
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
@@ -97,6 +106,10 @@ packages:
 
   array-flatten@1.1.1:
     resolution: {integrity: sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==}
+
+  bcrypt@6.0.0:
+    resolution: {integrity: sha512-cU8v/EGSrnH+HnxV2z0J7/blxH8gq7Xh2JFT6Aroax7UohdmiJJlxApMxtKfuI7z68NvvVcmR78k2LbT6efhRg==}
+    engines: {node: '>= 18'}
 
   body-parser@1.19.0:
     resolution: {integrity: sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==}
@@ -250,8 +263,16 @@ packages:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
 
+  node-addon-api@8.4.0:
+    resolution: {integrity: sha512-D9DI/gXHvVmjHS08SVch0Em8G5S1P+QWtU31appcKT/8wFSPRcdHadIFSAntdMMVM5zz+/DL+bL/gz3UDppqtg==}
+    engines: {node: ^18 || ^20 || >= 21}
+
   node-cleanup@2.1.2:
     resolution: {integrity: sha512-qN8v/s2PAJwGUtr1/hYTpNKlD6Y9rc4p8KSmJXyGdYGZsDGKXrGThikLFP9OCHFeLeEpQzPwiAtdIvBLqm//Hw==}
+
+  node-gyp-build@4.8.4:
+    resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
+    hasBin: true
 
   on-finished@2.3.0:
     resolution: {integrity: sha512-ikqdkGAAyf/X/gPhXGvfgAytDZtDbr+bkNUJ0N9h5MI/dmdgCs3l6hoHrcUv41sRKew3jIwrp4qQDXiK99Utww==}
@@ -444,6 +465,10 @@ packages:
 
 snapshots:
 
+  '@types/bcrypt@5.0.2':
+    dependencies:
+      '@types/node': 24.0.10
+
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
@@ -505,6 +530,11 @@ snapshots:
   ansi-regex@3.0.1: {}
 
   array-flatten@1.1.1: {}
+
+  bcrypt@6.0.0:
+    dependencies:
+      node-addon-api: 8.4.0
+      node-gyp-build: 4.8.4
 
   body-parser@1.19.0:
     dependencies:
@@ -679,7 +709,11 @@ snapshots:
 
   negotiator@0.6.3: {}
 
+  node-addon-api@8.4.0: {}
+
   node-cleanup@2.1.2: {}
+
+  node-gyp-build@4.8.4: {}
 
   on-finished@2.3.0:
     dependencies:
