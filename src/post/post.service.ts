@@ -1,3 +1,4 @@
+import { createST } from "../../utils/createST";
 import { pool } from "../app/database/postgresql";
 import { PostModel } from "./post.model";
 
@@ -43,13 +44,11 @@ export const createPost = async (post: PostModel) => {
  * 更新文章
  */
 export const updatePost = async (postId: number, post: PostModel) => {
-  const fields = Object.entries(post);
-  const setClause = fields.map(([key], i) => `${key} = $${i + 1}`).join(", ");
-  const values = fields.map(([_, value]) => value);
+  const { setClause, values, len } = createST({ obj: post, options: "UPDATE" });
   const statement = `
     UPDATE post
     SET ${setClause}
-    WHERE id = $${fields.length + 1}
+    WHERE id = $${len + 1}
     RETURNING *
   `;
   const { rows } = await pool.query(statement, [...values, postId]);

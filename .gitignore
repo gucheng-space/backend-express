@@ -23,10 +23,11 @@ logs
 .env.*
 !.env.example
 
-vscode/*
+.vscode/*
 !.vscode/settins.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
 config/*.key
+/uploads

@@ -70,3 +70,4 @@ export const destroy = async (
     next(error);
   }
 };
+
