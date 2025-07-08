@@ -6,4 +6,7 @@ export class FileModel {
   filesize: number;
   postid?: number;
   userid: number;
+  width: number;
+  height: number;
+  metadata?: {};
 }

@@ -54,6 +54,10 @@ export const defaultErrorHandler = (
       statusCode = 403;
       message = "你不能操作此数据";
       break;
+    case "FILE_NOT_FOUND":
+      statusCode = 404;
+      message = "没有介个文件";
+      break;
     default:
       statusCode = 500;
       message = "服务器暂时出了点问题 O.o";
