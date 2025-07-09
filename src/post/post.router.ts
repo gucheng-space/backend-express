@@ -36,6 +36,26 @@ router.delete(
 );
 
 /**
+ * 添加标签内容
+ */
+router.post(
+  "/posts/:postId/tag",
+  authGuard,
+  accessControl({ possession: true }),
+  postController.storePostTag
+);
+
+/**
+ * 删除内容标签
+ */
+router.delete(
+  "/posts/:postId/tag",
+  authGuard,
+  accessControl({ possession: true }),
+  postController.destroyPostTag
+);
+
+/**
  * 导出路由
  */
 export default router;
