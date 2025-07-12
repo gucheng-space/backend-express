@@ -12,18 +12,29 @@ export interface GetPostsOptionsFilter {
   param?: string;
 }
 
+export interface GetPostsOptionsPagination {
+  limit: number;
+  offset: number;
+}
+
 interface GetPostsOptions {
   sort?: string;
   filter?: GetPostsOptionsFilter;
+  pagination?: GetPostsOptionsPagination;
 }
 export const getPosts = async (options: GetPostsOptions) => {
-  const { sort, filter } = options;
+  const {
+    sort,
+    filter,
+    pagination: { limit, offset },
+  } = options;
   // 默认排序
-  let params: Array<any> = [];
+  let params: Array<any> = [limit, offset];
 
   if (filter.param) {
     params = [filter.param, ...params];
   }
+  const len = params.length;
   const statement = `
     SELECT
       post.id,
@@ -36,6 +47,8 @@ export const getPosts = async (options: GetPostsOptions) => {
     FROM post
     WHERE ${filter.sql}
     ORDER BY ${sort}
+    LIMIT $${len - 1}
+    OFFSET $${len}
   `;
   const { rows } = await pool.query(statement, params);
   return rows;
@@ -119,5 +132,21 @@ export const deletePostTag = async (postId: number, tagId: number) => {
     RETURNING *
   `;
   const { rows } = await pool.query(statement, [postId, tagId]);
+  return rows[0];
+};
+
+/**
+ * 统计内容数量
+ */
+export const getPostsTotalCount = async (options: GetPostsOptions) => {
+  const { filter } = options;
+
+  const params = filter.param ? [filter.param] : [];
+  const statement = `
+    SELECT COUNT(post.id) as total
+    FROM post
+    WHERE ${filter.sql}
+  `;
+  const { rows } = await pool.query(statement, params);
   return rows[0];
 };

@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { POST_PER_PAGE } from "../app/app.config";
 /**
  * 排序方式
  */
@@ -65,5 +66,27 @@ export const filter = async (
       param: user as string,
     };
   }
+  next();
+};
+
+/**
+ * 内容分页
+ */
+export const paginate = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const { page = 1 } = request.query;
+
+  const limit = parseInt(POST_PER_PAGE, 10) || 30;
+
+  const offset = limit * ((page as number) - 1);
+
+  request.pagination = {
+    limit,
+    offset,
+  };
+
   next();
 };

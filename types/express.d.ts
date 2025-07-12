@@ -1,4 +1,7 @@
-import { GetPostsOptionsFilter } from "../src/post/post.service";
+import {
+  GetPostsOptionsFilter,
+  GetPostsOptionsPagination,
+} from "../src/post/post.service";
 import { TokenPayload } from "../src/auth/auth.interface";
 declare global {
   namespace Express {
@@ -7,6 +10,7 @@ declare global {
       fileMetaData: { width?: number; height?: number; metadata?: {} };
       sort: string;
       _filter: GetPostsOptionsFilter;
+      pagination: GetPostsOptionsPagination;
     }
   }
 }
