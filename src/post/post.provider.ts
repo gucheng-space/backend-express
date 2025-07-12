@@ -5,10 +5,13 @@ export const sqlFragment = {
   user: `
     (SELECT JSONB_BUILD_OBJECT(
       'id', "user".id,
-      'username', "user".name
+      'username', "user".name,
+      'avatar', CASE WHEN COUNT(avatar.id) > 0 THEN 1 ELSE NULL END
       )
     FROM "user"
+    LEFT JOIN avatar ON avatar.userid = "user".id
     WHERE "user".id = post.userid
+    GROUP BY "user".id, "user".name
     ) AS user
   `,
   totalComments: `
