@@ -61,8 +61,17 @@ export const filter = async (
 
   if (user && action === "published" && !tag) {
     request._filter = {
-      name: "userId",
+      name: "userPublished",
       sql: `post.userid = $1`,
+      param: user as string,
+    };
+  }
+
+  //过滤出用户赞过的内容
+  if (user && action === "liked" && !tag) {
+    request._filter = {
+      name: "userLiked",
+      sql: `user_like_post.userid = $1`,
       param: user as string,
     };
   }

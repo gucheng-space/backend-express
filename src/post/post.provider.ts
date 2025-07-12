@@ -57,4 +57,18 @@ export const sqlFragment = {
       '[]'::JSONB
     ) AS tags
   `,
+  totalLikes: `
+    (
+      SELECT
+        COUNT(user_like_post.postid)
+      FROM
+        user_like_post
+      WHERE
+        user_like_post.postid = post.id
+    ) as totalLikes
+  `,
+  innerJoinUserLikePost: `
+    JOIN user_like_post
+		ON user_like_post.postid = post.id
+  `,
 };

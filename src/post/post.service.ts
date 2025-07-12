@@ -42,9 +42,11 @@ export const getPosts = async (options: GetPostsOptions) => {
       post.content,
       ${sqlFragment.user},
       ${sqlFragment.totalComments},
+      ${sqlFragment.totalLikes},
       ${sqlFragment.files},
       ${sqlFragment.tags}
     FROM post
+    ${filter.name == "userLiked" ? sqlFragment.innerJoinUserLikePost : ""}
     WHERE ${filter.sql}
     ORDER BY ${sort}
     LIMIT $${len - 1}
@@ -143,8 +145,10 @@ export const getPostsTotalCount = async (options: GetPostsOptions) => {
 
   const params = filter.param ? [filter.param] : [];
   const statement = `
-    SELECT COUNT(post.id) as total
+    SELECT 
+      COUNT(DISTINCT post.id) as total
     FROM post
+      ${filter.name == "userLiked" ? sqlFragment.innerJoinUserLikePost : ""}
     WHERE ${filter.sql}
   `;
   const { rows } = await pool.query(statement, params);

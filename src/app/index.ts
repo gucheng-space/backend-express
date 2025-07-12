@@ -7,6 +7,7 @@ import fileRouter from "../file/file.router";
 import tagRouter from "../tag/tag.router";
 import commentRouter from "../comment/comment.router";
 import avatarRouter from "../avatar/avtar.router";
+import likesRouter from "../likes/likes.router";
 
 /**
  * 创建应用
@@ -28,7 +29,8 @@ app.use(
   fileRouter,
   tagRouter,
   commentRouter,
-  avatarRouter
+  avatarRouter,
+  likesRouter
 );
 
 /**
