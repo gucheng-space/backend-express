@@ -1,25 +1,43 @@
 import { createST } from "../../utils/createST";
 import { pool } from "../app/database/postgresql";
 import { PostModel } from "./post.model";
+import { sqlFragment } from "./post.provider";
 
 /**
  * 获取所有文章
  */
-export const getPosts = async () => {
+export interface GetPostsOptionsFilter {
+  name?: string;
+  sql?: string;
+  param?: string;
+}
+
+interface GetPostsOptions {
+  sort?: string;
+  filter?: GetPostsOptionsFilter;
+}
+export const getPosts = async (options: GetPostsOptions) => {
+  const { sort, filter } = options;
+  // 默认排序
+  let params: Array<any> = [];
+
+  if (filter.param) {
+    params = [filter.param, ...params];
+  }
   const statement = `
     SELECT
       post.id,
       post.title,
       post.content,
-      JSON_BUILD_OBJECT(
-        'id', "user".id,
-        'username', "user".name
-      ) AS user
+      ${sqlFragment.user},
+      ${sqlFragment.totalComments},
+      ${sqlFragment.files},
+      ${sqlFragment.tags}
     FROM post
-    LEFT JOIN "user"
-    ON "user".id = post.userid
+    WHERE ${filter.sql}
+    ORDER BY ${sort}
   `;
-  const { rows } = await pool.query(statement);
+  const { rows } = await pool.query(statement, params);
   return rows;
 };
 
