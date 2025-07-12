@@ -61,11 +61,7 @@ export const filter = async (
   if (user && action === "published" && !tag) {
     request._filter = {
       name: "userId",
-      sql: `EXISTS (
-              SELECT 1 FROM "user"
-              WHERE "user".id = post.userid
-              AND "user".id = $1
-            )`,
+      sql: `post.userid = $1`,
       param: user as string,
     };
   }
