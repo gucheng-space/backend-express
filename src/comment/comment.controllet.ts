@@ -1,10 +1,13 @@
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import { CommentModel } from "./comment.model";
 import {
   createComment,
   isReplyComment,
   updateComment,
   deleteComment,
+  getComments,
+  getCommentsTotalCount,
+  getCommentReplies,
 } from "./comment.service";
 
 /**
@@ -89,6 +92,51 @@ export const destroy = async (
   const { commentId } = request.params;
   try {
     const mes = await deleteComment(parseInt(commentId, 10));
+    response.status(200).send(mes);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 评论列表
+ */
+export const index = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const totalCount = await getCommentsTotalCount({ filter: request._filter });
+
+    response.header("X-Total-Count", totalCount["total"]);
+  } catch (error) {
+    next(error);
+  }
+
+  try {
+    const comments = await getComments({
+      filter: request._filter,
+      pagination: request.pagination,
+    });
+    response.status(200).send(comments);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 回复列表
+ */
+export const indexReplies = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const { commentId } = request.params;
+
+  try {
+    const mes = await getCommentReplies({ commentId: parseInt(commentId, 10) });
     response.status(200).send(mes);
   } catch (error) {
     next(error);

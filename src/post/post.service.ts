@@ -154,3 +154,27 @@ export const getPostsTotalCount = async (options: GetPostsOptions) => {
   const { rows } = await pool.query(statement, params);
   return rows[0];
 };
+
+/**
+ * 按 ID 获取内容
+ */
+export const getPostById = async (postId: number) => {
+  const statement = `
+    SELECT 
+     post.id,
+     post.title,
+     post.content,
+     ${sqlFragment.user},
+     ${sqlFragment.totalComments},
+     ${sqlFragment.totalLikes},
+     ${sqlFragment.files},
+     ${sqlFragment.tags}
+    FROM post
+    WHERE post.id = $1
+  `;
+  const { rows } = await pool.query(statement, [postId]);
+  if (!rows[0]) {
+    throw new Error("NOT_FOUND");
+  }
+  return rows;
+};

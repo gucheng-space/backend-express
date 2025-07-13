@@ -37,6 +37,7 @@ export const sqlFragment = {
           FROM file 
           WHERE postid = post.id 
           ORDER BY id DESC
+          LIMIT 1
       ) file),
       '[]'::JSONB
     ) AS files 

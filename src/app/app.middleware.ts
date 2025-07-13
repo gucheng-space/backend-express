@@ -34,6 +34,10 @@ export const defaultErrorHandler = (
       statusCode = 400;
       message = "请输入密码";
       break;
+    case "PASSWORD_IS_THE_SAME":
+      statusCode = 400;
+      message = "新密码不能与旧密码相同";
+      break;
     case "USER_ALREADY_EXIST":
       statusCode = 409;
       message = "这名字被人用了";
@@ -73,6 +77,14 @@ export const defaultErrorHandler = (
     case "FILE_TYPE_NOT_ALLOWED":
       statusCode = 400;
       message = "不能上传此类型的文件";
+      break;
+    case "NOT_FOUND":
+      statusCode = 404;
+      message = "未找到此文章";
+      break;
+    case "USER_NOT_FOUND":
+      statusCode = 404;
+      message = "未找到此用户";
       break;
     default:
       statusCode = 500;
